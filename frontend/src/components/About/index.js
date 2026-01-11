@@ -14,7 +14,7 @@ function About() {
         <ContextContainer>
           <h2>My Journey into AI/ML</h2>
           <p>
-            My fascination with AI and machine learning began during my Master’s studies in{" "}
+            My fascination with AI and machine learning began during my Master's studies in{" "}
             <strong>Automation and Robotics</strong> at <strong>Poznań University of Technology</strong>, where I
             specialized in <strong>Intelligent Systems</strong>. This program placed a strong emphasis on machine
             learning algorithms, artificial intelligence, and computer vision, laying a solid foundation for my further
@@ -28,23 +28,22 @@ function About() {
           <p>
             I honed my skills working with data as a <strong>Senior Equipment Engineer</strong> at{" "}
             <strong>LG Energy Solution</strong>, where effective data analysis was crucial for making quick and
-            well-informed decisions in a dynamic production environment. Currently, I pursue AI and ML projects as a
-            hobby, constantly expanding my skills through practical applications. To better visualize and present my
-            work, I started learning <strong>React</strong>, which led to the creation of this portfolio.
+            well-informed decisions in a dynamic production environment. Building on this foundation, I've developed{" "}
+            <strong>end-to-end AI systems</strong> — from model training and evaluation to API deployment on cloud
+            infrastructure.
           </p>
           <img src={dataAnalyze} alt="data analyze"></img>
         </ContextContainer>
 
         <ContextContainer>
-          <h2>My Strengths</h2>
+          <h2>Technical Approach</h2>
           <p>
-            My passion and commitment are also reflected in the results of the <strong>Gallup StrengthsFinder</strong>{" "}
-            test, which highlighted my natural talents: <em>Futuristic, Maximizer, Focus, Input</em>, and{" "}
-            <em>Adaptability</em>. I believe these traits enable me to effectively transform visions into tangible
-            projects.
+            I focus on building AI systems that work in production — with proper error handling, monitoring, and
+            deployment pipelines. Each project in my portfolio includes containerization with <strong>Docker</strong>,{" "}
+            <strong>CI/CD</strong> automation via GitHub Actions, and cloud deployment on <strong>GCP</strong> or{" "}
+            <strong>AWS</strong>.
           </p>
-
-          <img src={gallup} alt="gallup"></img>
+          <img src={gallup} alt="technical approach"></img>
         </ContextContainer>
 
         <ContextContainer $reverse>

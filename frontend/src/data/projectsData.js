@@ -31,7 +31,8 @@ const projectsData = [
             "Tavily API",
             "React",
             "Docker",
-            "GCP Cloud Run"
+            "AWS App Runner",
+            "GitHub Actions"
         ],
         githubLink: "https://github.com/Oleksy1121/ai-research-analyst",
         thumbnail: aiResearchAnalystThumbnail,
@@ -72,19 +73,19 @@ const projectsData = [
         id: 3,
         title: "Video Summarizer",
         description: `
-            <p>An application that automatically summarizes videos from URL into structured <strong>Markdown</strong> notes. Built with modular architecture, the project explores both open-source and commercial LLMs:</p>
+            <p>An application that automatically summarizes YouTube videos into structured <strong>Markdown</strong> notes using speech-to-text and LLM summarization:</p>
             <ul>
-                <li><strong>Transcription:</strong> Extracting audio with <code>yt-dlp</code> and transcribing using <strong>OpenAI Whisper</strong>.</li>
-                <li><strong>Summarization:</strong> Generating structured summaries with <strong>GPT-4o-mini</strong>.</li>
-                <li><strong>Prototypes:</strong> Two versions tested:
+                <li><strong>Transcription:</strong> Audio extraction with <code>yt-dlp</code> and transcription using <strong>OpenAI Whisper</strong>.</li>
+                <li><strong>Summarization:</strong> Structured summaries generated with <strong>GPT-4o-mini</strong>.</li>
+                <li><strong>Prototypes:</strong> Two versions developed:
                     <ul>
                         <li>Colab notebook: <strong>LLaMA 3.1 (quantized)</strong> + Whisper</li>
                         <li>Jupyter notebook: <strong>OpenAI Whisper + GPT</strong> with Gradio UI</li>
                     </ul>
                 </li>
-                <li><strong>API:</strong> Final version designed as a <strong>FastAPI</strong> service for easy integration.</li>
+                <li><strong>API:</strong> Production <strong>FastAPI</strong> service deployed on <strong>GCP Cloud Run</strong>.</li>
             </ul>
-            <p>The project demonstrates practical use of speech-to-text pipelines, LLM summarization, and lightweight user interfaces with <strong>Gradio</strong>.</p>
+            <p>Demonstrates speech-to-text pipelines, LLM summarization, and cloud deployment with rate limiting.</p>
         `,
         skills: [
             "Python",
@@ -104,14 +105,14 @@ const projectsData = [
         id: 4,
         title: "SnakeAI – Reinforcement Learning Agent",
         description: `
-            <p>This project implements a reinforcement learning agent that learns to play the classic Snake game using <strong>Stable-Baselines3</strong>. Key aspects include:</p>
+            <p>A reinforcement learning agent trained to play the classic Snake game using <strong>Stable-Baselines3</strong>. Key aspects include:</p>
             <ul>
-                <li><strong>Environment:</strong> Custom Snake environment built with <code>Gymnasium</code>, featuring both image-based observations and additional vector features.</li>
-                <li><strong>Algorithms:</strong> Training with <strong>PPO</strong> and <strong>DQN</strong>, with PPO showing the best performance.</li>
-                <li><strong>Training:</strong> Curriculum learning strategy with dynamic apple count, TensorBoard monitoring, and evaluation callbacks. The best model reached an average of ~3000 steps per episode and 278 mean reward.</li>
-                <li><strong>Visualization:</strong> Live rendering with Pygame and training progress tracked via TensorBoard charts.</li>
+                <li><strong>Environment:</strong> Custom Snake environment built with <code>Gymnasium</code>, featuring both image-based observations and feature vector inputs.</li>
+                <li><strong>Algorithms:</strong> Training with <strong>PPO</strong> and <strong>DQN</strong>, with PPO achieving the best performance.</li>
+                <li><strong>Training:</strong> Curriculum learning with dynamic apple count, TensorBoard monitoring, and evaluation callbacks. Best model reached ~3000 steps per episode and 278 mean reward after 50M training steps.</li>
+                <li><strong>Visualization:</strong> Live rendering with Pygame and training progress tracked via TensorBoard.</li>
             </ul>
-            <p>The agent demonstrates efficient apple collection but still struggles with self-trapping, which is a target for future improvements.</p>
+            <p>The agent demonstrates efficient apple collection, with self-trapping behavior targeted for future improvements.</p>
         `,
         skills: [
             "Python",
@@ -130,23 +131,23 @@ const projectsData = [
         id: 5,
         title: "Handwritten Digit Recognizer",
         description: `
-            <p>This project presents a handwritten digit recognition system based on deep learning techniques using the MNIST dataset. Key aspects include:</p>
+            <p>A handwritten digit recognition system using a CNN trained on the MNIST dataset, deployed as a web application with real-time inference:</p>
             <ul>
-                <li><strong>Neural Network Architecture:</strong> Implementation of a convolutional neural network (CNN) for image classification.</li>
-                <li><strong>Training and Evaluation:</strong> Training the model on the MNIST dataset and assessing its performance.</li>
-                <li><strong>User Interface:</strong> A web-based demo allowing users to draw digits and receive predictions in real-time.</li>
+                <li><strong>Neural Network:</strong> TinyVGG architecture implemented in <strong>PyTorch</strong> for image classification.</li>
+                <li><strong>Training Pipeline:</strong> Modular codebase with separate modules for data setup, model building, training engine, and evaluation.</li>
+                <li><strong>Web Interface:</strong> Interactive canvas for drawing digits with instant predictions and confidence scores.</li>
+                <li><strong>API:</strong> <strong>FastAPI</strong> backend serving model predictions, containerized with <strong>Docker</strong>.</li>
             </ul>
-            <p>This project combines deep learning with practical web deployment for interactive digit recognition.</p>
+            <p>Achieved 84% accuracy after retraining on production environment data. Demonstrates end-to-end ML workflow from training to deployment.</p>
         `,
         skills: [
             "Python",
-            "Pytorch",
+            "PyTorch",
             "Scikit-learn",
-            "Numpy",
+            "NumPy",
             "Pandas",
             "Matplotlib",
             "FastAPI",
-            "JavaScript",
             "React",
             "Docker"
         ],

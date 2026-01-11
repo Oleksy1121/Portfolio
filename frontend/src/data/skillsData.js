@@ -8,23 +8,21 @@
 // { level: 'expert'
 
 const skillsData = [
-  { name: "Python", level: "intermediate" },
-  { name: "Pytorch", level: "foundational" },
+  { name: "Python", level: "advanced" },
+  { name: "LangChain", level: "intermediate" },
+  { name: "LangGraph", level: "intermediate" },
+  { name: "OpenAI API", level: "intermediate" },
+  { name: "PyTorch", level: "foundational" },
+  { name: "ChromaDB", level: "intermediate" },
+  { name: "YOLOv8", level: "intermediate" },
   { name: "Scikit-learn", level: "foundational" },
-  { name: "Numpy", level: "foundational" },
-  { name: "Pandas", level: "foundational" },
-  { name: "Matplotlib", level: "intermediate" },
-  { name: "Plotly", level: "basic" },
-  { name: "FastAPI", level: "basic" },
-
-  { name: "JavaScript", level: "foundational" },
-  { name: "React", level: "foundational" },
-  { name: "Node.js", level: "basic" },
-  { name: "MongoDB", level: "basic" },
-  { name: "SQL", level: "basic" },
-  { name: "PostgreSQL", level: "basic" },
-  { name: "YOLO", level: "intermediate" },
-  { name: "Docker", level: "foundational" }
+  { name: "Stable-Baselines3", level: "foundational" },
+  { name: "Pandas", level: "intermediate" }, 
+  { name: "FastAPI", level: "intermediate" },
+  { name: "Docker", level: "intermediate" },
+  { name: "GCP", level: "foundational" },
+  { name: "AWS", level: "foundational" },
+  { name: "CI/CD (GitHub Actions)", level: "foundational" },
 ]
 
 export default skillsData

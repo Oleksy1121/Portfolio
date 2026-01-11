@@ -23,7 +23,7 @@ function Footer() {
         <Row className="justify-content-center">
           <Col xs="auto">
             <Copyright>
-              © {new Date().getFullYear()} Marcin Olekszczyk. All rights reserved.
+              © {new Date().getFullYear()} Marcin Oleszczyk. All rights reserved.
             </Copyright>
           </Col>
         </Row>

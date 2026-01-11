@@ -3,10 +3,10 @@ import { H1, HomeContainer, ImageContainer, P, TextContainer } from "./styles"
 import myImage from "../../assets/logo.jpg"
 
 const roles = [
+  "AI Engineer",
+  "Python AI Developer",
+  "LLM Applications Developer",
   "Machine Learning Engineer",
-  "Full Stack Developer",
-  "Python Developer",
-  "AI Enthusiast",
 ]
 
 function Home() {
@@ -25,15 +25,15 @@ function Home() {
   return (
     <HomeContainer>
       <TextContainer>
-        <P $isInit>Hey i'm Marcin 👋🏼</P>
+        <P $isInit>Hey, I'm Marcin 👋🏼</P>
         <H1>
           <span className="colorAccent">{roles[index].slice(0, 7)}</span>
           {roles[index].slice(7)}
 
         </H1>
         <P $isDescribe>
-          I'm a Polish specialist combining AI/ML technologies with web application development. I'll help you build
-          intelligent, modern solutions
+          Building production-ready AI systems — from LLM applications and RAG pipelines
+          to computer vision and reinforcement learning.
         </P>
       </TextContainer>
 
