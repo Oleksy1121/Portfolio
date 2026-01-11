@@ -77,7 +77,6 @@ function AIResearchAnalyst() {
       startListening(sessionId);
     } catch (err) {
       console.error('Failed to approve plan:', err);
-    } finally {
       setIsApproving(false);
     }
   };
@@ -109,10 +108,16 @@ function AIResearchAnalyst() {
       startListening(sessionId);
     } catch (err) {
       console.error('Failed to reject plan:', err);
-    } finally {
       setIsApproving(false);
     }
   };
+
+  // Reset isApproving when status changes to running
+  React.useEffect(() => {
+    if (status === 'running' && isApproving) {
+      setIsApproving(false);
+    }
+  }, [status, isApproving]);
 
   // Fetch report when completed
   React.useEffect(() => {
@@ -151,10 +156,10 @@ function AIResearchAnalyst() {
       }
     };
 
-    if (status === 'awaiting_approval' && sessionId && !pendingPlan) {
+    if (status === 'awaiting_approval' && sessionId && !pendingPlan && !isApproving) {
       fetchPlan();
     }
-  }, [status, sessionId, pendingPlan]);
+  }, [status, sessionId, pendingPlan, isApproving]);
 
   const handleNewResearch = () => {
     reset();
