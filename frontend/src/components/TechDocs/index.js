@@ -24,8 +24,7 @@ import {
   ErrorMessage,
 } from "./styles";
 
-// API URL - zmień na swój backend
-const API_URL = process.env.REACT_APP_TECHDOCS_API_URL || "https://techdocs-backend-202366413188.europe-west4.run.app";
+const API_URL = process.env.REACT_APP_TECHDOCS_API_URL || 'http://localhost:8000';
 
 const EXAMPLE_QUESTIONS = [
   "How to create a neural network in PyTorch?",
