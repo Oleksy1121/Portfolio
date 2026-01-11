@@ -9,6 +9,7 @@ import {
 } from './styles';
 import ResearchForm from './ResearchForm';
 import ProgressTracker from './ProgressTracker';
+import PlanApprovalModal from './PlanApprovalModal';
 import useResearchSSE from './hooks/useResearchSSE';
 
 const API_URL = process.env.REACT_APP_RESEARCH_API_URL || 'http://localhost:8000';
@@ -18,6 +19,8 @@ function AIResearchAnalyst() {
   const [depth, setDepth] = useState('standard');
   const [sessionId, setSessionId] = useState(null);
   const [report, setReport] = useState(null);
+  const [isApproving, setIsApproving] = useState(false);
+  const [pendingPlan, setPendingPlan] = useState(null);
 
   const {
     status,
@@ -32,6 +35,7 @@ function AIResearchAnalyst() {
     try {
       reset();
       setReport(null);
+      setPendingPlan(null);
 
       const response = await fetch(`${API_URL}/api/v1/research/start`, {
         method: 'POST',
@@ -51,37 +55,115 @@ function AIResearchAnalyst() {
     }
   };
 
+  const handleApprove = async () => {
+    if (!sessionId) return;
+    setIsApproving(true);
 
-  // Fetch report when status becomes completed
-    React.useEffect(() => {
+    try {
+      const response = await fetch(`${API_URL}/api/v1/research/${sessionId}/approve`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ approved: true }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to approve plan');
+      }
+
+      setPendingPlan(null);
+      startListening(sessionId);
+    } catch (err) {
+      console.error('Failed to approve plan:', err);
+    } finally {
+      setIsApproving(false);
+    }
+  };
+
+  const handleReject = async () => {
+    if (!sessionId) return;
+    setIsApproving(true);
+
+    try {
+      const response = await fetch(`${API_URL}/api/v1/research/${sessionId}/approve`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          approved: false,
+          modified_plan: {
+            research_questions: [
+              { id: 'q1', question: query, priority: 'high' }
+            ],
+            search_strategies: ['Direct search'],
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to reject plan');
+      }
+
+      setPendingPlan(null);
+      startListening(sessionId);
+    } catch (err) {
+      console.error('Failed to reject plan:', err);
+    } finally {
+      setIsApproving(false);
+    }
+  };
+
+  // Fetch report when completed
+  React.useEffect(() => {
     const fetchReport = async () => {
-        if (!sessionId) return;
+      if (!sessionId) return;
 
-        try {
+      try {
         const response = await fetch(`${API_URL}/api/v1/research/${sessionId}/report`);
         if (!response.ok) throw new Error('Failed to fetch report');
 
         const data = await response.json();
         setReport(data.report);
-        } catch (err) {
+      } catch (err) {
         console.error('Failed to fetch report:', err);
-        }
+      }
     };
 
     if (status === 'completed' && sessionId && !report) {
-        fetchReport();
+      fetchReport();
     }
-    }, [status, sessionId, report]);
+  }, [status, sessionId, report]);
+
+  // Fetch plan when awaiting approval
+  React.useEffect(() => {
+    const fetchPlan = async () => {
+      if (!sessionId) return;
+
+      try {
+        const response = await fetch(`${API_URL}/api/v1/research/${sessionId}/plan`);
+        if (!response.ok) throw new Error('Failed to fetch plan');
+
+        const data = await response.json();
+        setPendingPlan(data.plan);
+      } catch (err) {
+        console.error('Failed to fetch plan:', err);
+      }
+    };
+
+    if (status === 'awaiting_approval' && sessionId && !pendingPlan) {
+      fetchPlan();
+    }
+  }, [status, sessionId, pendingPlan]);
 
   const handleNewResearch = () => {
     reset();
     setSessionId(null);
     setReport(null);
     setQuery('');
+    setPendingPlan(null);
   };
 
   const isRunning = status === 'running';
   const isCompleted = status === 'completed';
+  const isAwaitingApproval = status === 'awaiting_approval';
 
   return (
     <AIResearchAnalystContainer>
@@ -94,10 +176,10 @@ function AIResearchAnalyst() {
           depth={depth}
           setDepth={setDepth}
           onSubmit={handleStartResearch}
-          isDisabled={isRunning}
+          isDisabled={isRunning || isAwaitingApproval}
         />
 
-        {(isRunning || isCompleted) && (
+        {(isRunning || isCompleted || isAwaitingApproval) && (
           <ProgressTracker
             currentStep={currentStep}
             progress={progress}
@@ -133,6 +215,15 @@ function AIResearchAnalyst() {
           </div>
         )}
       </div>
+
+      {isAwaitingApproval && pendingPlan && (
+        <PlanApprovalModal
+          plan={pendingPlan}
+          onApprove={handleApprove}
+          onReject={handleReject}
+          isLoading={isApproving}
+        />
+      )}
 
       <CallToActionLink
         href="https://github.com/Oleksy1121/ai-research-analyst"

@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef } from 'react';
 
 const useResearchSSE = (apiUrl) => {
-  const [status, setStatus] = useState('idle'); // idle | running | completed | error
+  const [status, setStatus] = useState('idle');
   const [currentStep, setCurrentStep] = useState(null);
   const [progress, setProgress] = useState({
     sourcesCount: 0,
@@ -11,6 +11,7 @@ const useResearchSSE = (apiUrl) => {
   });
   const [error, setError] = useState(null);
   const eventSourceRef = useRef(null);
+  const statusRef = useRef('idle');
 
   const startListening = useCallback((sessionId) => {
     if (eventSourceRef.current) {
@@ -27,6 +28,12 @@ const useResearchSSE = (apiUrl) => {
         switch (data.event) {
           case 'started':
             setStatus('running');
+            statusRef.current = 'running';
+            break;
+          
+          case 'resumed':
+            setStatus('running');
+            statusRef.current = 'running';
             break;
             
           case 'step_completed':
@@ -44,9 +51,15 @@ const useResearchSSE = (apiUrl) => {
               }));
             }
             break;
+          
+          case 'awaiting_approval':
+            setStatus('awaiting_approval');
+            statusRef.current = 'awaiting_approval';
+            break;
             
           case 'done':
             setStatus('completed');
+            statusRef.current = 'completed';
             if (data.data) {
               setProgress(prev => ({
                 ...prev,
@@ -59,6 +72,7 @@ const useResearchSSE = (apiUrl) => {
             
           case 'error':
             setStatus('error');
+            statusRef.current = 'error';
             setError(data.data?.error || 'Unknown error occurred');
             eventSource.close();
             break;
@@ -72,8 +86,12 @@ const useResearchSSE = (apiUrl) => {
     };
 
     eventSource.onerror = () => {
-      setStatus('error');
-      setError('Connection lost');
+      const currentStatus = statusRef.current;
+      if (currentStatus !== 'awaiting_approval' && currentStatus !== 'completed') {
+        setStatus('error');
+        statusRef.current = 'error';
+        setError('Connection lost');
+      }
       eventSource.close();
     };
   }, [apiUrl]);
@@ -88,6 +106,7 @@ const useResearchSSE = (apiUrl) => {
   const reset = useCallback(() => {
     stopListening();
     setStatus('idle');
+    statusRef.current = 'idle';
     setCurrentStep(null);
     setProgress({
       sourcesCount: 0,

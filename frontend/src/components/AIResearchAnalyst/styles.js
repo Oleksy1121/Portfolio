@@ -263,3 +263,164 @@ export const CallToActionLink = styled.a`
     margin-right: 10px;
   }
 `;
+
+// Modal styles
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  padding: 20px;
+`;
+
+export const ModalContent = styled.div`
+  background: var(--color-card-bg);
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--color-border-light);
+`;
+
+export const ModalHeader = styled.div`
+  padding: 20px;
+  border-bottom: 1px solid var(--color-border-light);
+  text-align: center;
+
+  h2 {
+    margin: 0 0 8px 0;
+    color: var(--color-text);
+    font-size: 1.4em;
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-secondary-text);
+    font-size: 0.9em;
+  }
+`;
+
+export const ModalBody = styled.div`
+  padding: 20px;
+  text-align: left;
+
+  h3 {
+    color: var(--color-text);
+    font-size: 1em;
+    margin: 0 0 12px 0;
+  }
+
+  ul {
+    margin: 0 0 20px 20px;
+    color: var(--color-secondary-text);
+  }
+
+  li {
+    margin-bottom: 6px;
+  }
+`;
+
+export const QuestionList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+`;
+
+export const QuestionItem = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  background: var(--color-bg);
+  border-radius: 8px;
+  border: 1px solid var(--color-border-light);
+
+  span {
+    color: var(--color-text);
+    font-size: 0.95em;
+    line-height: 1.4;
+  }
+`;
+
+export const PriorityBadge = styled.span`
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.7em;
+  font-weight: 600;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  background: ${({ $priority }) => {
+    if ($priority === 'high') return '#fee2e2';
+    if ($priority === 'medium') return '#fef3c7';
+    return '#e0e7ff';
+  }};
+  color: ${({ $priority }) => {
+    if ($priority === 'high') return '#dc2626';
+    if ($priority === 'medium') return '#d97706';
+    return '#4f46e5';
+  }};
+`;
+
+export const ModalFooter = styled.div`
+  padding: 20px;
+  border-top: 1px solid var(--color-border-light);
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+`;
+
+export const ApproveButton = styled.button`
+  padding: 12px 24px;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover:not(:disabled) {
+    background: transparent;
+    color: var(--color-accent);
+    box-shadow: inset 0 0 0 2px var(--color-accent);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+`;
+
+export const RejectButton = styled.button`
+  padding: 12px 24px;
+  background: transparent;
+  color: var(--color-secondary-text);
+  border: 2px solid var(--color-border-light);
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover:not(:disabled) {
+    border-color: var(--color-orange);
+    color: var(--color-orange);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+`;
