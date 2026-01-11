@@ -55,7 +55,7 @@ function AIResearchAnalyst() {
     }
   };
 
-  const handleApprove = async () => {
+  const handleApprove = async (modifiedPlan) => {
     if (!sessionId) return;
     setIsApproving(true);
 
@@ -63,7 +63,10 @@ function AIResearchAnalyst() {
       const response = await fetch(`${API_URL}/api/v1/research/${sessionId}/approve`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ approved: true }),
+        body: JSON.stringify({
+          approved: true,
+          modified_plan: modifiedPlan,
+        }),
       });
 
       if (!response.ok) {

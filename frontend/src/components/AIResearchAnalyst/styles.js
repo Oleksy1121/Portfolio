@@ -368,6 +368,49 @@ export const PriorityBadge = styled.span`
     if ($priority === 'medium') return '#d97706';
     return '#4f46e5';
   }};
+  cursor: ${({ $clickable }) => ($clickable ? 'pointer' : 'default')};
+  transition: all 0.2s ease;
+
+  ${({ $clickable }) =>
+    $clickable &&
+    `
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  `}
+`;
+
+export const PrioritySelector = styled.div`
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+`;
+
+export const PriorityOption = styled.button`
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.7em;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: ${({ $priority }) => {
+    if ($priority === 'high') return '#fee2e2';
+    if ($priority === 'medium') return '#fef3c7';
+    return '#e0e7ff';
+  }};
+  color: ${({ $priority }) => {
+    if ($priority === 'high') return '#dc2626';
+    if ($priority === 'medium') return '#d97706';
+    return '#4f46e5';
+  }};
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  }
 `;
 
 export const ModalFooter = styled.div`
